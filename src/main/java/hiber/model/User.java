@@ -1,6 +1,5 @@
 package hiber.model;
 
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -72,4 +71,6 @@ public class User {
    public void setCar(Car car) {
       this.car = car;
    }
+
+
 }
