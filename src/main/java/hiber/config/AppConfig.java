@@ -1,5 +1,7 @@
 package hiber.config;
 
+
+import hiber.model.Car;
 import hiber.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+// Этот класс задает конфигурацию спринга
+// Получает проперти из ресурсов
+// Ищет компоненты в папке хайбр
+// 3 аннотация говорит о том что спринг будет управлять транзакциями
 
 @Configuration
 @PropertySource("classpath:db.properties")
@@ -24,7 +30,7 @@ public class AppConfig {
 
    @Autowired
    private Environment env;
-
+   // Что это за класс? Из него мы получаем проперти, он здесь как зависимость, но должен быть где-то создан
    @Bean
    public DataSource getDataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -45,7 +51,7 @@ public class AppConfig {
       props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
       factoryBean.setHibernateProperties(props);
-      factoryBean.setAnnotatedClasses(User.class);
+      factoryBean.setAnnotatedClasses(User.class, Car.class);
       return factoryBean;
    }
 
