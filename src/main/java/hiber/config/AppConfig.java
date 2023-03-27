@@ -17,10 +17,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-// Этот класс задает конфигурацию спринга
-// Получает проперти из ресурсов
-// Ищет компоненты в папке хайбр
-// 3 аннотация говорит о том что спринг будет управлять транзакциями
 
 @Configuration
 @PropertySource("classpath:db.properties")
@@ -28,9 +24,14 @@ import java.util.Properties;
 @ComponentScan(value = "hiber")
 public class AppConfig {
 
-   @Autowired
+
    private Environment env;
-   // Что это за класс? Из него мы получаем проперти, он здесь как зависимость, но должен быть где-то создан
+
+   @Autowired
+   public AppConfig(Environment env) {
+      this.env = env;
+   }
+
    @Bean
    public DataSource getDataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
